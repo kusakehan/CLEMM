@@ -1,6 +1,6 @@
 Package: CLEMM
 Type: Package
-Title: Package for papaer CLEMM:Clustering and Envelope Mixture Models
+Title: Package for paper CLEMM:Clustering and Envelope Mixture Models
 Version: 0.1.0
 Author: Wenjing Wang [aut, cre]
 Maintainer: Wenjing Wang <Wenjing.Wang@stat.fsu.edu>
