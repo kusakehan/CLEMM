@@ -50,7 +50,8 @@ dat <- matrix(NA, N, r)
 for (j in 1:K) {
   if(md <= 3){
     x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j], 
-sigma = da$Sigma[, , j])}else {x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j],         sigma = da$Sigma)}
+sigma = da$Sigma[, , j])}else {
+x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j], sigma = da$Sigma)}
 
 dat[idx==j, ] <- x_tmp
 }
@@ -139,7 +140,7 @@ for (j in 1:K) {
   if(md <= 3){
     x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j], 
 sigma = da$Sigma[, , j])}else
-{ x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j], 
+{x_tmp <- rmvnorm(sum(idx==j), mean = da$mu[, j], 
 sigma = da$Sigma)}
 
 dat[idx==j, ] <- x_tmp
