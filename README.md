@@ -1,7 +1,6 @@
 # CLEMM
 
-This is an R package to paper "CLEMM: Clustering and Envelope Mixture Models", which includes the algorithm for solving envelope subspace
-and EM algorithm for CLEMM and GMM.
+This is an R package to the manuscript " Parsimonious model-based clustering with envelopes" by Wang, Zhang and Mai (2018). It includes the envelope-EM algorithms for fitting Gaussian Mixture Models.
 
 The `CLEMM` package can be installed, directly from GitHub, using the devtools library:
 
