@@ -66,7 +66,7 @@ gmm_em <- function (da, K, iter, stopping=1e-7, init, typ="G", add_eye="False") 
       }
       ll[n+1] <- Mixturell(K, da, a[, n+1], t(muEst[, , n+1]), SigmaEst[, , , n+1])
       
-      print(c(n))
+      #print(c(n))
       if ((ll[n+1]-ll[n]) < stopping) break;
     }
     sig = SigmaEst[, , , n]
@@ -113,7 +113,7 @@ gmm_em <- function (da, K, iter, stopping=1e-7, init, typ="G", add_eye="False") 
       
       ll[n+1] <- Mixturell(K, da, a[, n+1], t(muEst[, , n+1]), SigmaEst[, , n+1])
       
-      print(c(n))
+      #print(c(n))
       if ((ll[n+1]-ll[n]) < stopping) break;
     }
     sig = SigmaEst[, , n]
