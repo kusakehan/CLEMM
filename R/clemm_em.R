@@ -102,7 +102,7 @@ clemm_em <- function (da, K, u, iter, stopping=1e-7, opts=NULL, init, typ="G", a
       
       
       ll[n+1] <- Mixturell(K, da, a[, n+1], t(muEst[, , n+1]), SigmaEst[, , , n+1])
-      print(n)
+      #print(n)
       if((n>1) && (ll[n+1]-ll[n]<stopping)) break;
     }
     if ((ll[n+1]-ll[n]) < 0){
@@ -166,7 +166,7 @@ clemm_em <- function (da, K, u, iter, stopping=1e-7, opts=NULL, init, typ="G", a
       
       ll[n+1] <- Mixturell(K, da, a[, n+1], t(muEst[, , n+1]), SigmaEst[, , n+1])
       
-      print(n)
+      #print(n)
       if((n>1) && (ll[n+1]-ll[n]<stopping)) break;
     }
     if ((ll[n+1]-ll[n]) < 0){
