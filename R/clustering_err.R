@@ -19,8 +19,9 @@ clustering_err <- function(K, da, em_res, pi0=NULL, mu=NULL, Sigma=NULL, idx) {
       tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst[, , j])
     }else{tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst)}
   }
+  tmp <- apply(tempP, 1, which.max)
   for (t2 in 1:length(tp)) {
-    tmp <- apply(tempP, 1, which.max)
+    
     idxpred[, t2] <- (tp[[t2]])[tmp]
     tp2[t2] <- sum(idxpred[, t2] != idx)/N
   }
@@ -41,5 +42,5 @@ clustering_err <- function(K, da, em_res, pi0=NULL, mu=NULL, Sigma=NULL, idx) {
       pier <- abs(a[od[j]]-pi0[j])+pier
     }
   }
-  return(list(cluster_err=prederr, mean_err=muer, wt_err=pier, cov_err=sigmaer))
+  return(list(cluster_err=prederr, mean_err=muer, wt_err=pier, cov_err=sigmaer, idxenv=idxpred[, ix]))
 }
