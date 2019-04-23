@@ -6,37 +6,39 @@ clustering_err <- function(K, da, em_res, pi0=NULL, mu=NULL, Sigma=NULL, idx) {
   muEst = em_res$muEst
   SigmaEst = em_res$SigmaEst
   a = em_res$a
-
+  
   tp <- permn(K);
   tp2 <- rep(NA, length(tp))
   N <- nrow(da);
   idxpred <- matrix(NA, N, length(tp))
   muer <- sigmaer <- pier <- 0
+ 
+  tempP <- matrix(0, N, K)
+  for(j in 1:K){
+    if (length(dim(SigmaEst))==3) {
+      tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst[, , j])
+    }else{tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst)}
+  }
   for (t2 in 1:length(tp)) {
-    tempP <- matrix(0, N, K)
-    for(j in 1:K){
-      if (length(dim(SigmaEst))==3) {
-          tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst[, , j])
-        }else{tempP[, j] <- a[j]*dmvnorm(da, mean=muEst[j, ], sigma=SigmaEst)}
-    }
-    idxpred[, t2] <- (tp[[t2]])[apply(tempP, 1, which.max)]
+    tmp <- apply(tempP, 1, which.max)
+    idxpred[, t2] <- (tp[[t2]])[tmp]
     tp2[t2] <- sum(idxpred[, t2] != idx)/N
   }
   prederr <- min(tp2)
-
+  
   ix <- which.min(tp2);
   od <- tp[[ix]]
   if (length(dim(Sigma))==3) {
     for (j in 1:K){
-      muer <- norm(matrix(muEst[j, ]-mu[, od[j]]), type = "F") + muer
-      pier <- abs(a[j]-pi0[od[j]])+pier
-      sigmaer <- norm((SigmaEst[, , j]-Sigma[, , od[j]]), type = "F")+sigmaer
+      muer <- norm(matrix(muEst[od[j], ]-mu[, j]), type = "F") + muer
+      pier <- abs(a[od[j]]-pi0[j])+pier
+      sigmaer <- norm((SigmaEst[, , od[j]]-Sigma[, , j]), type = "F")+sigmaer
     }
   }else if(!is.null(Sigma)){
     sigmaer <- norm((SigmaEst-Sigma), type = "F")
     for (j in 1:K){
-      muer <- norm(matrix(muEst[j, ]-mu[, od[j]]), type = "F") + muer
-      pier <- abs(a[j]-pi0[od[j]])+pier
+      muer <- norm(matrix(muEst[od[j], ]-mu[, j]), type = "F") + muer
+      pier <- abs(a[od[j]]-pi0[j])+pier
     }
   }
   return(list(cluster_err=prederr, mean_err=muer, wt_err=pier, cov_err=sigmaer))
