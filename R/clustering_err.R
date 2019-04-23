@@ -11,7 +11,7 @@ clustering_err <- function(K, da, em_res, pi0=NULL, mu=NULL, Sigma=NULL, idx) {
   tp2 <- rep(NA, length(tp))
   N <- nrow(da);
   idxpred <- matrix(NA, N, length(tp))
-  muer <- sigmaer <- pier <- NA
+  muer <- sigmaer <- pier <- 0
   for (t2 in 1:length(tp)) {
     tempP <- matrix(0, N, K)
     for(j in 1:K){
